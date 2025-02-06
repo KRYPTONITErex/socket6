@@ -9,6 +9,19 @@
     let feedback = document.getElementById("feedback");
     let output = document.getElementById("output");
 
+    let roomInput = document.getElementById("room");
+    let joinRoomButton = document.getElementById("joinRoom");
+
+    let roomName = "";
+
+    joinRoomButton.addEventListener("click", () => {
+      roomName = roomInput.value.trim();
+      if(roomName !== ""){
+        socket.emit("joinRoom", roomName, username.value = "");
+        roomInput.disabled = true;
+      }
+    })
+
 
     document.addEventListener("keydown", (e) => {
         if (e.key === "Enter" && message.value !== "") {
@@ -28,6 +41,7 @@
         let data = {
           username: username.value,
           message: message.value,
+          room: roomName
         };
         if(data.username === "" || data.message === ""){
             return;
